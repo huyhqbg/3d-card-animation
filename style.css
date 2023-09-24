@@ -1,0 +1,123 @@
+:root {
+  --rotation: 30deg;
+  --speed: 750ms;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #1e272e;
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  place-content: center;
+  perspective: 1000px;
+}
+
+img {
+  max-width: 100%;
+}
+
+.card {
+  margin: 0 auto;
+  width: 230px;
+  position: relative;
+  aspect-ratio: 10/16;
+  perspective: 1000px;
+}
+
+.card > * {
+  position: absolute;
+}
+
+.card::before,
+.card::after {
+  background: black;
+  display: block;
+  content: "";
+  position: absolute;
+}
+
+.card::before {
+  inset: 0 1rem -1rem;
+  filter: blur(0.8rem);
+  transition: rotate var(--speed) ease, translate var(--speed) ease;
+}
+
+.card:hover::before {
+  rotate: x calc(var(--rotation) - 15deg);
+  translate: 0 50px;
+}
+
+.card::after {
+  inset: -1px;
+  opacity: 0;
+  background: radial-gradient(circle, transparent 50px, black);
+  transition: rotate var(--speed) ease, opacity calc(var(--speed) - 100ms) ease;
+}
+
+.card:hover::after {
+  opacity: 1;
+  rotate: x var(--rotation);
+}
+
+.bg {
+  height: 100%;
+  inset: 0;
+  background: teal;
+  object-fit: cover;
+  object-position: center;
+  transition: rotate var(--speed) ease;
+}
+
+.card:hover .bg {
+  rotate: x var(--rotation);
+}
+
+.logo {
+  width: 70%;
+  margin-inline: auto;
+  inset: 0 0 auto;
+  transition: transform var(--speed) ease;
+  z-index: 10;
+}
+
+.card:hover .logo {
+  transform: translateY(-4rem);
+}
+
+.front {
+  inset: 0 auto 0;
+  scale: 0.8;
+  opacity: 0;
+  transition: opacity 100ms ease, transform var(--speed) ease;
+  z-index: 20;
+}
+
+.card:hover .front {
+  opacity: 1;
+  transform: translateY(-4rem);
+}
+
+.fate .logo {
+  bottom: 0.5rem;
+  top: auto;
+  z-index: 21;
+}
+
+.fate:hover .logo {
+  transform: translateY(-4rem);
+}
+
+.fate .front {
+  scale: 1.1;
+  transform: translateY(-2rem);
+}
+
+.fate:hover .front {
+  transform: translateY(-4rem);
+}
